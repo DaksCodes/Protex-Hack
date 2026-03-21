@@ -336,7 +336,7 @@ const EducationStyled = styled.div`
             display: flex;
             flex-direction: column;
             gap: 15px;
-            max-height: 250px; /* Thoda bada kar diya taaki description fit aaye */
+            max-height: 250px; 
             overflow-y: auto;
             padding-right: 5px;
 
@@ -371,7 +371,7 @@ const EducationStyled = styled.div`
                 color: rgba(34, 34, 96, 0.7);
                 margin-bottom: 6px;
                 display: -webkit-box;
-                -webkit-line-clamp: 2; /* Description ko 2 line me truncate karne ke liye */
+                -webkit-line-clamp: 2; 
                 -webkit-box-orient: vertical;
                 overflow: hidden;
             }
