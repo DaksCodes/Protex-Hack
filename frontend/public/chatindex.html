@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FinanceBot - Smart Finance Advisor</title>
+    <style>
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .chat-container {
+            width: 90vw;
+            max-width: 600px;
+            height: 80vh;
+            max-height: 800px;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1e3a8a;
+        }
+        .header h1 { margin: 0 0 5px 0; font-size: 1.8em; }
+        .header p { margin: 0; color: #64748b; font-size: 0.95em; }
+        .quick-prompts {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .quick-prompts button {
+            flex: 1;
+            min-width: 120px;
+            padding: 8px 12px;
+            background: linear-gradient(45deg, #10b981, #059669);
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.85em;
+            transition: all 0.2s;
+        }
+        .quick-prompts button:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(16,185,129,0.4); }
+        .chat-box {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px 10px;
+            margin-bottom: 20px;
+            border-radius: 15px;
+            background: rgba(248,250,252,0.5);
+        }
+        .user, .bot {
+            margin: 15px 0;
+            display: flex;
+            align-items: flex-end;
+            gap: 10px;
+        }
+        .user { justify-content: flex-end; }
+        .bot { justify-content: flex-start; }
+        .avatar { font-size: 1.5em; }
+        .user .avatar { color: #3b82f6; }
+        .bot .avatar { color: #10b981; }
+        .bubble {
+            max-width: 70%;
+            padding: 12px 16px;
+            border-radius: 18px;
+            position: relative;
+            animation: fadeIn 0.3s ease-in;
+            word-wrap: break-word;
+        }
+        .user .bubble { background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; }
+        .bot .bubble { background: white; border: 1px solid #e2e8f0; color: #1e293b; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        .timestamp { font-size: 0.75em; opacity: 0.7; margin-top: 5px; }
+        .loading {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            justify-content: flex-start;
+        }
+        .spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #e5e7eb;
+            border-top: 2px solid #10b981;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        .input-container {
+            display: flex;
+            gap: 10px;
+        }
+        #userInput {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 25px;
+            font-size: 1em;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+        #userInput:focus { border-color: #3b82f6; }
+        button[type="button"] {
+            padding: 12px 20px;
+            background: linear-gradient(45deg, #3b82f6, #1d4ed8);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        button[type="button"]:hover { transform: translateY(-1px); box-shadow: 0 5px 15px rgba(59,130,246,0.4); }
+        button[type="button"]:focus { outline: 2px solid #3b82f6; outline-offset: 2px; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @media (max-width: 768px) {
+            body { padding: 10px; }
+            .chat-container { width: 95vw; height: 90vh; padding: 15px; margin: 10px; }
+            .quick-prompts { flex-direction: column; }
+            .quick-prompts button { min-width: auto; }
+            .bubble { max-width: 85%; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="chat-container">
+    <div class="header">
+        <h1>💰 FinanceBot</h1>
+        <p>Your personal finance advisor powered by AI</p>
+    </div>
+    <div class="quick-prompts">
+        <button onclick="setPrompt('Budget advice?')">Budget advice?</button>
+        <button onclick="setPrompt('Investment tips?')">Investment tips?</button>
+        <button onclick="setPrompt('Savings plan?')">Savings plan?</button>
+        <button onclick="clearChat()">Clear Chat</button>
+    </div>
+
+    <div class="chat-box" id="chatBox" role="log" aria-live="polite"></div>
+
+    <div class="loading" id="loading" style="display: none;">
+        <div class="spinner"></div>
+        <span>Bot is typing...</span>
+    </div>
+
+    <div class="input-container">
+        <input type="text" id="userInput" placeholder="Ask about your finances..." autocomplete="off">
+        <button type="button" onclick="sendMessage()" aria-label="Send message">➤ Send</button>
+    </div>
+</div>
+
+<script>
+// Load saved messages on start
+window.onload = function() {
+    const saved = localStorage.getItem('chatHistory');
+    if (saved) {
+        const messages = JSON.parse(saved);
+        messages.forEach(msg => addMessageWithTime(msg.text, msg.sender, msg.time));
+    }
+    document.getElementById('userInput').focus();
+};
+
+function getCurrentTime() {
+    return new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
+}
+
+function addMessageWithTime(message, sender, time = getCurrentTime()) {
+    let chatBox = document.getElementById("chatBox");
+
+    let div = document.createElement("div");
+    div.className = sender;
+
+    let avatar = document.createElement("div");
+    avatar.className = "avatar";
+    avatar.innerHTML = sender === 'user' ? '👤' : '💰';
+
+    let bubble = document.createElement("div");
+    bubble.className = "bubble";
+    bubble.innerHTML = message.replace(/\n/g, '<br>');
+
+    let timestamp = document.createElement("div");
+    timestamp.className = "timestamp";
+    timestamp.innerText = time;
+
+    if (sender === 'user') {
+        div.appendChild(bubble);
+        div.appendChild(timestamp);
+        div.appendChild(avatar);
+    } else {
+        div.appendChild(avatar);
+        div.appendChild(bubble);
+        div.appendChild(timestamp);
+    }
+
+    chatBox.appendChild(div);
+    chatBox.scrollTop = chatBox.scrollHeight;
+
+    // Save to localStorage
+    const messages = JSON.parse(localStorage.getItem('chatHistory') || '[]');
+    messages.push({text: message, sender, time});
+    localStorage.setItem('chatHistory', JSON.stringify(messages.slice(-100))); // Keep last 100
+}
+
+function showLoading() {
+    document.getElementById('loading').style.display = 'flex';
+}
+
+function hideLoading() {
+    document.getElementById('loading').style.display = 'none';
+}
+
+function sendMessage() {
+    let input = document.getElementById("userInput");
+    let message = input.value.trim();
+
+    if (!message) return;
+
+    addMessageWithTime(message, "user");
+    input.value = "";
+
+    showLoading();
+
+    fetch("http://127.0.0.1:8000/api/ml/chat", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: message })
+    })
+    .then(res => {
+        if (!res.ok) throw new Error('Network error');
+        return res.json();
+    })
+    .then(data => {
+        hideLoading();
+        if (data.response) {
+            addMessageWithTime(data.response, "bot");
+        } else {
+            addMessageWithTime("Sorry, I couldn't process that. Try again!", "bot");
+        }
+    })
+    .catch(err => {
+        hideLoading();
+        addMessageWithTime("Error: Is the server running? Start with 'python app.py'", "bot");
+        console.error(err);
+    });
+}
+
+// Additional functions
+function setPrompt(prompt) {
+    document.getElementById('userInput').value = prompt;
+    sendMessage();
+}
+
+function clearChat() {
+    if (confirm('Clear chat history?')) {
+        document.getElementById('chatBox').innerHTML = '';
+        localStorage.removeItem('chatHistory');
+    }
+}
+
+// Enter key support
+document.getElementById('userInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') sendMessage();
+});
+</script>
+
+</body>
+</html>
