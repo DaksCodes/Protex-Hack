@@ -214,3 +214,7 @@ def chat_endpoint(request: ChatRequest):
         result = f"📋 **Quick Expense Summary:**\n" + '\n'.join([f"• {cat.title()}: ₹{amt:,.0f}" for cat,amt in cats.head().items()])
     
     return {"response": result}
+if __name__ == "__main__":
+    import uvicorn
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
