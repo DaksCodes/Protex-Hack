@@ -52,12 +52,16 @@ def get_expenses():
 @app.get("/api/summary")
 def get_summary():
     df = load_data()
-    
+
+   
+    if "category" in df.columns:
+        df = df[df["category"].str.lower() != "income"]
+
     if df.empty:
         return {"total": 0, "category": {}, "monthly": {}}
 
     total = float(df["amount"].sum())
-    
+
     # Category summary
     if "category" in df.columns:
         category = df.groupby("category")["amount"].sum().to_dict()
@@ -77,7 +81,6 @@ def get_summary():
         "category": category,
         "monthly": monthly_dict
     }
-
 
 @app.get("/api/ml/fire-inputs")
 def get_fire_predictions():
