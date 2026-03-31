@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 import { Route, Routes, useLocation } from "react-router-dom";
-import About from "../pages/About";
-import Contact from "../pages/Contact";
-import Feature from "../pages/Feature";
-import Home from "../pages/Home";
-import NotFound from "../pages/NotFound";
-import Project from "../pages/Project";
-import Service from "../pages/Service";
-import Team from "../pages/Team";
-import Testimonial from "../pages/Testimonial";
-import Copyright from "./Copyright";
-import Footer from "./Footer";
-import Header from "./Header";
+import About from "../pages/About.jsx";
+import Contact from "../pages/Contact.jsx";
+import Feature from "../pages/Feature.jsx";
+import Home from "../pages/Home.jsx";
+import NotFound from "../pages/NotFound.jsx";
+import Project from "../pages/Project.jsx";
+import Service from "../pages/Service.jsx";
+import Team from "../pages/Team.jsx";
+import Testimonial from "../pages/Testimonial.jsx";
+import Copyright from "./Copyright.jsx";
+import Footer from "./Footer.jsx";
+import Header from "./Header.jsx";
 
 const RoutesWrapper = () => {
   return (

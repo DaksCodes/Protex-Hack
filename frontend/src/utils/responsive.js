@@ -1,13 +1,14 @@
-import { css, CSSObject } from "styled-components";
+import { css } from "styled-components";
+
 // XLarge device breakpoint
-export function xlUp(props: CSSObject) {
+export function xlUp(props) {
   return css`
   @media only screen and (min-width:1401px) {
     ${props}
   }
 `
 }
-export function xlDown(props: CSSObject) {
+export function xlDown(props) {
   return css`
   @media only screen and (max-width:1400px) {
     ${props}
@@ -15,7 +16,7 @@ export function xlDown(props: CSSObject) {
 `
 }
 // Large device breakpoint
-export function lgDown(props: CSSObject) {
+export function lgDown(props) {
   return css`
   @media only screen and (max-width:1200px) {
     ${props}
@@ -24,14 +25,14 @@ export function lgDown(props: CSSObject) {
 }
 
 // Medium device breakpoint
-export function mdDown(props: CSSObject) {
+export function mdDown(props) {
   return css`
   @media only screen and (max-width:992px) {
     ${props}
   }
 `
 }
-export function mdUp(props: CSSObject) {
+export function mdUp(props) {
   return css`
   @media only screen and (min-width:991px) {
     ${props}
@@ -39,7 +40,7 @@ export function mdUp(props: CSSObject) {
 `
 }
 // Small device breakpoint
-export function smDown(props: CSSObject) {
+export function smDown(props) {
   return css`
   @media only screen and (max-width:768px) {
     ${props}
@@ -47,14 +48,14 @@ export function smDown(props: CSSObject) {
 `
 }
 // XSmall device breakpoint
-export function xsUp(props: CSSObject) {
+export function xsUp(props) {
   return css`
   @media only screen and (min-width:576px) {
     ${props}
   }
 `
 }
-export function xsDown(props: CSSObject) {
+export function xsDown(props) {
   return css`
   @media only screen and (max-width:576px) {
     ${props}

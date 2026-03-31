@@ -6,13 +6,14 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Power1, gsap } from "gsap";
-
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import CountUp from "react-countup";
 import styled from "styled-components";
 import { mdDown, xsDown } from "../utils/responsive";
 import { WrapperContainer, imgbaseUrl } from "./SliderItem";
+
 library.add(faCheck, faUsersGear, faAward);
+
 const Container = styled.div`
   width: 100%;
   background: linear-gradient(rgba(233, 241, 234, 0.95), rgba(19, 103, 64, 0.95)),
@@ -20,10 +21,12 @@ const Container = styled.div`
   padding: 48px 0;
   margin: 48px 0;
 `;
+
 const StyledWrapper = styled(WrapperContainer)`
   display: flex;
   flex-wrap: wrap;
 `;
+
 const Item = styled.div`
   padding: 0 24px;
   margin-top: 48px;
@@ -35,12 +38,14 @@ const Item = styled.div`
     width: "100%",
   })}
 `;
+
 const Icon = styled(FontAwesomeIcon)`
   font-size: 3rem;
   color: ${({ theme }) => theme.palette.common.white};
   margin: 0 auto 18px;
   display: block;
 `;
+
 const Title = styled(CountUp)`
   font-family: "Jost", "sans-serif";
   font-weight: 700;
@@ -51,12 +56,15 @@ const Title = styled(CountUp)`
   display: block;
   text-align: center;
 `;
+
 const Count = styled.span``;
+
 const SubTitle = styled.p`
   color: ${({ theme }) => theme.palette.common.white};
   font-size: 1.25rem;
   text-align: center;
 `;
+
 const Hr = styled.hr`
   width: 72px;
   margin: 16px auto 0;
@@ -65,15 +73,18 @@ const Hr = styled.hr`
   background-color: ${({ theme }) => theme.palette.common.white};
   opacity: 0.25;
 `;
+
 const Facts = () => {
   // FadeIn Animation on parent scroll
-  const revealRefs = useRef<HTMLDivElement[]>([]);
+  const revealRefs = useRef([]);
   const [isVisible, setIsVisible] = useState(false);
-  const addToRefs = (el: HTMLDivElement) => {
+  
+  const addToRefs = (el) => {
     if (el && !revealRefs.current.includes(el)) revealRefs.current.push(el);
   };
+
   // Wrapper scroll trigger animation
-  const wrapperEl = useRef<HTMLDivElement>(null);
+  const wrapperEl = useRef(null);
   useLayoutEffect(() => {
     const t1 = gsap.timeline({
       scrollTrigger: {
@@ -91,12 +102,8 @@ const Facts = () => {
     });
     return () => t1.scrollTrigger?.kill();
   }, []);
-  interface IItems {
-    icon: IconName;
-    title: number;
-    subTitle: string;
-  }
-  const items: IItems[] = [
+
+  const items = [
     {
       icon: "users",
       title: 1234,
@@ -118,6 +125,7 @@ const Facts = () => {
       subTitle: "Happy Clients",
     },
   ];
+
   return (
     <Container>
       <StyledWrapper ref={wrapperEl}>

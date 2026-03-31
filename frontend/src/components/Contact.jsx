@@ -11,11 +11,13 @@ import { gsap } from "gsap";
 const Container = styled(WrapperContainer)`
   padding: 48px 12px;
 `;
+
 const Wrapper = styled.div`
   margin: 0 -12px;
   display: flex;
   flex-wrap: wrap;
 `;
+
 const Col = styled.div`
   padding: 0 12px;
   width: 50%;
@@ -23,20 +25,26 @@ const Col = styled.div`
     width: "100%",
   })}
 `;
+
 const StyledParagraph = styled(Paragraph)``;
+
 const DLLink = styled(Link)`
   color: ${({ theme }) => theme.palette.primary.main};
 `;
+
 const Form = styled.form`
   display: flex;
   flex-wrap: wrap;
 `;
+
 const StyledInputContainer = styled(InputContainer)`
   width: 100%;
 `;
+
 const FormButton = styled(Button)`
   margin: 16px 8px;
 `;
+
 const Iframe = styled.iframe`
   width: 100%;
   height: 100%;
@@ -44,9 +52,10 @@ const Iframe = styled.iframe`
   border: 0;
   border-radius: ${({ theme }) => theme.borderRadius};
 `;
+
 const Contact = () => {
   // Container scroll trigger animation
-  const containerEl = useRef<HTMLDivElement>(null);
+  const containerEl = useRef(null);
   useLayoutEffect(() => {
     const contactTween = gsap.from(containerEl.current, {
       opacity: 0,
@@ -59,6 +68,7 @@ const Contact = () => {
       if (contactTween) contactTween.kill();
     };
   }, []);
+
   return (
     <Container ref={containerEl}>
       <Wrapper>

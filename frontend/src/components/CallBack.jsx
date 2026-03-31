@@ -5,6 +5,7 @@ import { TitleWithBigMargin } from "./Services";
 import { lgDown, mdDown, smDown, xlDown, xsDown } from "../utils/responsive";
 import { gsap } from "gsap";
 import { useLayoutEffect, useRef } from "react";
+
 const Container = styled.div`
   width: 100%;
   margin-top: 48px;
@@ -25,11 +26,13 @@ const Container = styled.div`
     z-index: -1;
   }
 `;
+
 const StyledWrapperContainer = styled(WrapperContainer)`
   padding-top: 48px;
   display: flex;
   justify-content: center;
 `;
+
 const Wrapper = styled.div`
   background: ${({ theme }) => theme.palette.common.white};
   border-radius: ${({ theme }) => theme.borderRadius};
@@ -45,11 +48,13 @@ const Wrapper = styled.div`
     margin: 0,
   })}
 `;
+
 const Bottom = styled.form`
   display: flex;
   flex-wrap: wrap;
   width: 100%;
 `;
+
 export const InputContainer = styled.div`
   margin-top: 16px;
   padding: 0 8px;
@@ -58,6 +63,7 @@ export const InputContainer = styled.div`
     width: "100%",
   })}
 `;
+
 export const Input = styled.input`
   color: ${({ theme }) => theme.palette.common.black};
   margin-top: 16px;
@@ -97,6 +103,7 @@ export const TextArea = styled.textarea`
     box-shadow: 0 0 0 4px rgba(53, 94, 252, 0.25);
   }
 `;
+
 export const Button = styled.button`
   cursor: pointer;
   color: ${({ theme }) => theme.palette.primary.light};
@@ -116,14 +123,16 @@ export const Button = styled.button`
     border-color: ${({ theme }) => theme.palette.primary.darker};
   }
 `;
+
 const FormButton = styled(Button)`
   width: 100%;
   margin: 16px 8px 0;
   text-align: center;
 `;
+
 const CallBack = () => {
   // Wrapper scroll trigger animation
-  const wrapperEl = useRef<HTMLDivElement>(null);
+  const wrapperEl = useRef(null);
   useLayoutEffect(() => {
     const callbackTween = gsap.from(wrapperEl.current, {
       opacity: 0,
@@ -137,6 +146,7 @@ const CallBack = () => {
       if (callbackTween) callbackTween.kill();
     };
   }, []);
+
   return (
     <Container>
       <StyledWrapperContainer>

@@ -1,6 +1,4 @@
-import { DefaultTheme } from "styled-components";
-
-export const defaultTheme: DefaultTheme = {
+export const defaultTheme = {
   borderColor: "rgba(76,175,80,0.15)",
   borderRadius: "8px",
   boxShadow: "0 0.5rem 1rem rgba(76,175,80,0.1)",
@@ -43,5 +41,3 @@ export const defaultTheme: DefaultTheme = {
     },
   },
 };
-
-/* inspiration : https://medium.com/rbi-tech/theme-with-styled-components-and-typescript-209244ec15a3 */

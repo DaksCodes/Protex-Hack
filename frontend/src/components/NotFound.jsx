@@ -7,6 +7,7 @@ import { lgDown } from "../utils/responsive";
 import { Paragraph } from "./About";
 import { hrefBaseUrl } from "./Header";
 import { gsap } from "gsap";
+
 const Container = styled(WrapperContainer)`
   padding: 48px 12px;
   display: flex;
@@ -14,10 +15,12 @@ const Container = styled(WrapperContainer)`
   align-items: center;
   max-width: 480px;
 `;
+
 const Icon = styled(FontAwesomeIcon)`
   color: ${({ theme }) => theme.palette.primary.main};
   font-size: 5rem;
 `;
+
 const Title = styled.h1`
   color: ${({ theme }) => theme.palette.secondary.main};
   font-size: 5rem;
@@ -26,6 +29,7 @@ const Title = styled.h1`
     fontSize: "calc(1.625rem + 4.5vw)",
   })}
 `;
+
 const SubTitle = styled.h1`
   color: ${({ theme }) => theme.palette.secondary.main};
   font-size: 2.5rem;
@@ -34,13 +38,15 @@ const SubTitle = styled.h1`
     fontSize: "calc(1.375rem + 1.5vw)",
   })}
 `;
+
 const StyledParagraph = styled(Paragraph)`
   margin-bottom: 24px;
   text-align: center;
 `;
+
 const NotFound = () => {
   // Container scroll trigger animation
-  const containerEl = useRef<HTMLDivElement>(null);
+  const containerEl = useRef(null);
   useLayoutEffect(() => {
     const notFoundTween = gsap.from(containerEl.current, {
       opacity: 0,
@@ -55,13 +61,14 @@ const NotFound = () => {
       if (notFoundTween) notFoundTween.kill();
     };
   }, []);
+  
   return (
     <Container ref={containerEl}>
       <Icon icon={faTriangleExclamation} />
       <Title>404</Title>
       <SubTitle>Page Not Found</SubTitle>
       <StyledParagraph>
-        We’re sorry, the page you have looked for does not exist in our website!
+        We're sorry, the page you have looked for does not exist in our website!
         Maybe go to our home page or try to use a search?
       </StyledParagraph>
       <ButtonLink to="">Go Back To Home</ButtonLink>

@@ -4,6 +4,7 @@ import ExpensePie from "../components/charts/PieChart";
 import ExpenseLine from "../components/charts/LineChart";
 import ExpenseBar from "../components/charts/BarChart";
 import BudgetChart from "../components/charts/BudgetChart";
+import Header from "../components/Header";
 
 export default function Dashboard() {
   const [data, setData] = useState(null);
@@ -107,6 +108,7 @@ export default function Dashboard() {
 
   return (
     <div style={container}>
+      <Header />
       <h1 style={title}>📊 Financial Dashboard</h1>
 
       {/* TOP CARDS */}

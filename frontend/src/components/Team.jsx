@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { WrapperContainer, imgbaseUrl } from "./SliderItem";
 import { ParagraphWithLightBorder, TitleH4 } from "./About";
 import { TitleWithBigMargin } from "./Services";
-import { DefaultMediaIconContainer, MediaIcon, hrefBaseUrl } from "./Header";
+import { DefaultMediaIconContainer, MediaIcon } from "./Header";
 import {
   faFacebookF,
   faInstagram,
@@ -12,6 +12,7 @@ import {
 import { lgDown, mdDown, smDown, xlDown } from "../utils/responsive";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+
 const Container = styled(WrapperContainer)`
   display: flex;
   flex-direction: column;
@@ -19,50 +20,28 @@ const Container = styled(WrapperContainer)`
   padding-top: 48px;
   padding-bottom: 48px;
 `;
+
 const Top = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
-// const CardContainer = styled.div`
-//   display: flex;
-//   flex-wrap: wrap;
-//   align-items: center;
-//   //width: 100%;
-//   margin: 0 -12px;
-// `;
 
 const CardContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;   // center cards
-  gap: 24px;                 // clean spacing
+  justify-content: center;
+  gap: 24px;
 `;
-// const CardWrapper = styled.div`
-//   flex-basis: 33.33%;
-//   ${mdDown({
-//     flexBasis: "50%",
-//   })}
-//   ${smDown({
-//     flexBasis: "100%",
-//   })}
-//   padding: 0 12px;
-//   padding-top: 24px;
-//   &:first-of-type {
-//     ${smDown({
-//       paddingTop: 0,
-//     })}
-//   }
-// `;
-
 
 const CardWrapper = styled.div`
-  flex: 1;                 // take equal space
-  max-width: 350px;        // control max size
-  margin: 0 auto;          // center nicely
+  flex: 1;
+  max-width: 350px;
+  margin: 0 auto;
   padding: 0 12px;
   padding-top: 24px;
 `;
+
 const Card = styled.div`
   padding: 64px 0;
   width: 100%;
@@ -76,6 +55,7 @@ const Card = styled.div`
     }
   }
 `;
+
 const CardImgBg = styled.div`
   position: absolute;
   left: 48px;
@@ -92,10 +72,12 @@ const CardImgBg = styled.div`
   padding: 15px 0;
   z-index: 1;
 `;
+
 const MediaContainer = styled.div`
   display: flex;
   position: relative;
 `;
+
 const StyledMediaIconContainer = styled(DefaultMediaIconContainer)`
   background-color: ${({ theme }) => theme.palette.primary.light};
   transition: background-color 300ms linear;
@@ -113,18 +95,16 @@ const StyledMediaIconContainer = styled(DefaultMediaIconContainer)`
     }
   }
 `;
+
 const CardImg = styled.img`
   width: 100%;
   height: 380px;
   object-fit: cover;
   border-radius: ${({ theme }) => theme.borderRadius};
 `;
+
 const Team = () => {
-  interface CardItemType {
-    name: string;
-    img: number;
-  }
-  const cardItem: CardItemType[] = useMemo(
+  const cardItem = useMemo(
     () => [
       {
         name: "Dakshita Agrawal ",
@@ -141,14 +121,17 @@ const Team = () => {
     ],
     []
   );
+
   // Top and Cards scroll trigger animation
-  const containerEl = useRef<HTMLDivElement>(null);
-  const topEl = useRef<HTMLDivElement>(null);
-  const cardWrapperEls = useRef<HTMLDivElement[]>([]);
-  const addToCardwrapperRefs = (el: HTMLDivElement) => {
+  const containerEl = useRef(null);
+  const topEl = useRef(null);
+  const cardWrapperEls = useRef([]);
+
+  const addToCardwrapperRefs = (el) => {
     if (el && !cardWrapperEls.current.includes(el))
       cardWrapperEls.current.push(el);
   };
+
   useLayoutEffect(() => {
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -169,9 +152,11 @@ const Team = () => {
       tl.scrollTrigger?.kill();
     };
   }, []);
+
   const handleLoad = () => {
     ScrollTrigger.refresh();
   };
+
   return (
     <Container ref={containerEl}>
       <Top ref={topEl}>
@@ -186,25 +171,6 @@ const Team = () => {
                 onLoad={handleLoad}
                 src={`${imgbaseUrl}team-${img}.jpg`}
               />
-              {/* <CardImgBg>
-                <TitleH4 style={{ margin: 0 }}>{name}</TitleH4>
-                <MediaContainer>
-                  <StyledMediaIconContainer to="">
-                    <MediaIcon icon={faFacebookF} />
-                  </StyledMediaIconContainer>
-                  <StyledMediaIconContainer to="">
-                    <MediaIcon icon={faTwitter} />
-                  </StyledMediaIconContainer>
-                  <StyledMediaIconContainer to="">
-                    <MediaIcon icon={faInstagram} />
-                  </StyledMediaIconContainer>
-                </MediaContainer>
-              </CardImgBg> */}
-           
-
-  <TitleH4 style={{ textAlign: "center", marginTop: "16px" }}>
-    {name}
-  </TitleH4>
             </Card>
           </CardWrapper>
         ))}

@@ -1,4 +1,4 @@
-import { IconName, library } from "@fortawesome/fontawesome-svg-core";
+import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faCircleXmark,
   faPhoneFlip,
@@ -15,10 +15,13 @@ import {
   imgbaseUrl,
 } from "./SliderItem";
 import { useLocation } from "react-router-dom";
+
 library.add(faCircleXmark, faUsers, faPhoneFlip);
+
 const Container = styled(WrapperContainer)`
   padding: 48px 12px;
 `;
+
 const ColWrapper = styled.div`
   display: flex;
   margin: 0 -12px 24px;
@@ -26,6 +29,7 @@ const ColWrapper = styled.div`
     flexDirection: "column",
   })};
 `;
+
 const Col = styled.div`
   padding: 0 12px;
   height: 624px;
@@ -44,6 +48,7 @@ const Col = styled.div`
     width: "100%",
   })};
 `;
+
 const Left = styled(Col)`
   opacity: 0;
   transform: translateY(100%);
@@ -57,14 +62,17 @@ const Left = styled(Col)`
     height: "auto",
   })};
 `;
+
 const Right = styled(Col)`
   height: auto;
   opacity: 0;
   transform: translateY(100%);
 `;
+
 export const ParagraphWithLightBorder = styled(ParagraphWithBorder)`
   border-color: ${({ theme }) => theme.palette.primary.light};
 `;
+
 const Image = styled.img`
   max-width: 100%;
   max-height: 100%;
@@ -79,25 +87,26 @@ export const Title = styled.h1`
     fontSize: "calc(1.425rem + 2.1vw)",
   })}
 `;
+
 export const Desc = styled.p`
   color: ${({ theme }) => theme.palette.common.black};
   margin-bottom: 24px;
   font-weight: 400;
 `;
+
 const TabContainer = styled.div`
   width: 100%;
   padding: 24px;
   border: 1px solid ${({ theme }) => theme.palette.primary.light};
   border-radius: ${({ theme }) => theme.borderRadius};
 `;
+
 const TabHeader = styled.div`
   margin-bottom: 16px;
   border-bottom: 1px solid ${({ theme }) => theme.palette.primary.light};
 `;
-interface TabTitleProps {
-  isSelected: boolean;
-}
-const TabTitle = styled.button<TabTitleProps>`
+
+const TabTitle = styled.button`
   color: ${({ isSelected, theme }) =>
     isSelected ? "#495057" : theme.palette.primary.main};
   padding: 8px 16px;
@@ -122,9 +131,7 @@ const TabTitle = styled.button<TabTitleProps>`
       isSelected ? "#dee2e6 #dee2e6 #fff" : "#dee2e6 #dee2e6 transparent"};
   }
 `;
-interface TabDescContainerProps {
-  isSelected: boolean;
-}
+
 export const fadeout = keyframes`
   0% {
     display:none;
@@ -139,19 +146,23 @@ export const fadeout = keyframes`
     opacity:1;
   }
 `;
-const TabDescContainer = styled.div<TabDescContainerProps>`
+
+const TabDescContainer = styled.div`
   opacity: ${({ isSelected }) => (isSelected ? 1 : 0)};
   display: ${({ isSelected }) => (isSelected ? "block" : "none")};
   animation: ${fadeout} 300ms linear;
 `;
+
 export const Paragraph = styled.p`
   color: ${({ theme }) => theme.palette.common.black};
 `;
+
 const StyledParagraph = styled(Paragraph)`
   &:first-of-type {
     margin-bottom: 16px;
   }
 `;
+
 const AboutFooter = styled.div`
   border: 1px solid ${({ theme }) => theme.palette.primary.light};
   border-radius: ${({ theme }) => theme.borderRadius};
@@ -161,6 +172,7 @@ const AboutFooter = styled.div`
     flexDirection: "column",
   })}
 `;
+
 const AboutFooterItem = styled.div`
   margin-top: 24px;
   padding: 0 12px;
@@ -175,6 +187,7 @@ const AboutFooterItem = styled.div`
       })}
   }
 `;
+
 const IconContainer = styled.div`
   border-radius: 50%;
   width: 48px;
@@ -189,16 +202,19 @@ const IconContainer = styled.div`
     font-size: 1rem;
   }
 `;
+
 export const Icon = styled(FontAwesomeIcon)`
   color: ${({ theme }) => theme.palette.primary.main};
   font-size: 3rem;
 `;
+
 const AboutFooterDescContainer = styled.div`
   padding-left: 10px;
   ${smDown({
     paddingLeft: 16,
   })}
 `;
+
 export const TitleH4 = styled.h4`
   color: ${({ theme }) => theme.palette.secondary.main};
   font-size: 1.5rem;
@@ -207,24 +223,22 @@ export const TitleH4 = styled.h4`
     fontSize: "calc(1.275rem + .3vw)",
   })}
 `;
+
 const AboutFooterItemParagraph = styled.p`
   color: ${({ theme }) => theme.palette.common.black};
   ${mdDown({
     marginBottom: 24,
   })}
 `;
+
 const About = () => {
-  const handleSelect = (idx: number) => {
+  const handleSelect = (idx) => {
     setTabIndex(idx);
   };
 
   const [tabIndex, setTabIndex] = useState(0);
-  const tabTitles: string[] = ["Story", "Mission", " Vision"];
-  interface ITabDesc {
-    firstDesc: string;
-    secondDesc: string;
-  }
-  const tabDescs: ITabDesc[] = [
+  const tabTitles = ["Story", "Mission", " Vision"];
+  const tabDescs = [
     {
       firstDesc:
         "FinPocket was created to address the growing gap in financial awareness among young users. Despite having access to digital tools, many individuals struggle with fragmented platforms and lack clear guidance for managing their finances effectively.",
@@ -241,33 +255,14 @@ const About = () => {
       firstDesc:
         "Our vision is to become a trusted digital financial companion for users at every stage of their financial journey. We strive to create a platform that not only manages money but also educates and guides users.",
       secondDesc:
-        "DWe envision a future where individuals can achieve financial independence with confidence and clarity, supported by technology that adapts to their needs and helps them grow their wealth sustainably.",
+        "We envision a future where individuals can achieve financial independence with confidence and clarity, supported by technology that adapts to their needs and helps them grow their wealth sustainably.",
     },
   ];
-  interface IFooterItem {
-    iconName: IconName;
-    title: string;
-    desc: string;
-  }
-  const footerItems: IFooterItem[] = [
-    // {
-    //   iconName: "circle-xmark",
-    //   title: "No Hidden Cost",
-    //   desc: " Clita erat ipsum lorem sit sed stet duo justo",
-    // },
-    // {
-    //   iconName: "users",
-    //   title: "Dedicated Team",
-    //   desc: " Clita erat ipsum lorem sit sed stet duo justo",
-    // },
-    // {
-    //   iconName: "phone-flip",
-    //   title: "24/7 Available",
-    //   desc: " Clita erat ipsum lorem sit sed stet duo justo",
-    // },
-  ];
+  
+  const footerItems = [];
+
   // Left on scroll animation
-  const leftEl = useRef<HTMLDivElement>(null);
+  const leftEl = useRef(null);
   useLayoutEffect(() => {
     const tween = gsap.to(leftEl.current, {
       opacity: 1,
@@ -283,8 +278,9 @@ const About = () => {
       tween.scrollTrigger?.kill();
     };
   }, []);
+
   // Right on scroll animation
-  const rightEl = useRef<HTMLDivElement>(null);
+  const rightEl = useRef(null);
   useLayoutEffect(() => {
     const tween = gsap.to(rightEl.current, {
       opacity: 1,
@@ -300,8 +296,11 @@ const About = () => {
       tween.scrollTrigger?.kill();
     };
   }, []);
+
   // aboutFooter container and child animation on scroll
-  const aboutFooterEl = useRef<HTMLDivElement>(null);
+  const aboutFooterEl = useRef(null);
+  const revealRefs = useRef([]);
+  
   useLayoutEffect(() => {
     const t1 = gsap.timeline({
       scrollTrigger: {
@@ -323,11 +322,11 @@ const About = () => {
     });
     return () => t1.scrollTrigger?.kill();
   }, []);
-  // AboutFooterItem animation on scroll
-  const revealRefs = useRef<HTMLDivElement[]>([]);
-  const addToRefs = (el: HTMLDivElement) => {
+
+  const addToRefs = (el) => {
     if (el && !revealRefs.current.includes(el)) revealRefs.current.push(el);
   };
+
   return (
     <Container>
       <ColWrapper>
@@ -338,7 +337,7 @@ const About = () => {
           <ParagraphWithBorder>About Us</ParagraphWithBorder>
           <Title>Guideline for your financial grow.</Title>
           <Desc>
-            FinPocket was created to solve the lack of financial awareness and fragmented tools faced by young users. We built a simple, unified platform that helps users manage money smarter and build better financial habits. 
+            FinPocket was created to solve the lack of financial awareness and fragmented tools faced by young users. We built a simple, unified platform that helps users manage money smarter and build better financial habits.
           </Desc>
           <TabContainer>
             <TabHeader>

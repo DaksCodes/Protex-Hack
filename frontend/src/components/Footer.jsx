@@ -3,13 +3,13 @@ import styled from "styled-components";
 import { WrapperContainer } from "./SliderItem";
 import { Paragraph } from "./About";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { IconName, library } from "@fortawesome/fontawesome-svg-core";
+import { library } from "@fortawesome/fontawesome-svg-core";
 import {
   faEnvelope,
   faLocationDot,
   faPhone,
 } from "@fortawesome/free-solid-svg-icons";
-import { DefaultMediaIconContainer, hrefBaseUrl } from "./Header";
+import { DefaultMediaIconContainer } from "./Header";
 import {
   faFacebookF,
   faLinkedinIn,
@@ -20,18 +20,22 @@ import { Link } from "react-router-dom";
 import { Button } from "./CallBack";
 import { mdDown, smDown, xsDown } from "../utils/responsive";
 import { gsap } from "gsap";
+
 library.add(faLocationDot, faPhone, faEnvelope);
+
 const Container = styled.div`
   background-color: ${({ theme }) => theme.palette.secondary.main};
   margin-top: 48px;
   padding: 48px 0;
 `;
+
 const Wrapper = styled(WrapperContainer)`
   padding: 48px 12px;
   ${mdDown({
     padding: "0 12px",
   })}
 `;
+
 const ColWrapper = styled.div`
   margin: 0 -24px;
   display: flex;
@@ -40,6 +44,7 @@ const ColWrapper = styled.div`
     margin: "0 -12px",
   })}
 `;
+
 const Col = styled.div`
   width: 25%;
   padding: 0 24px;
@@ -52,23 +57,28 @@ const Col = styled.div`
     padding: "0 12px",
   })}
 `;
+
 const FooterTitle = styled.h4`
   color: ${({ theme }) => theme.palette.common.white};
   font-size: 1.5rem;
   margin-bottom: 24px;
 `;
+
 const OfficeRow = styled(Paragraph)`
   color: ${({ theme }) => theme.palette.primary.light};
   margin-bottom: 8px;
 `;
+
 const OfficeRowIcon = styled(FontAwesomeIcon)`
   color: ${({ theme }) => theme.palette.primary.light};
   margin-right: 16px;
 `;
+
 const MediaContainer = styled.div`
   display: flex;
   margin-top: 8px;
 `;
+
 const MediaIconContainer = styled(DefaultMediaIconContainer)`
   background-color: transparent;
   height: 38px;
@@ -83,10 +93,13 @@ const MediaIconContainer = styled(DefaultMediaIconContainer)`
     }
   }
 `;
+
 const MediaIcon = styled(FontAwesomeIcon)`
   color: ${({ theme }) => theme.palette.primary.light};
 `;
+
 const LinkContainer = styled.div``;
+
 const FooterLink = styled(Link)`
   display: block;
   color: ${({ theme }) => theme.palette.primary.light};
@@ -98,16 +111,20 @@ const FooterLink = styled(Link)`
     box-shadow: none;
   }
 `;
+
 const FooterLinkIcon = styled(FontAwesomeIcon)`
   margin-right: 10px;
 `;
+
 const NewsletterParagraph = styled(Paragraph)`
   margin-bottom: 16px;
   color: ${({ theme }) => theme.palette.primary.light};
 `;
+
 const InputContainer = styled.form`
   position: relative;
 `;
+
 const Input = styled.input`
   display: block;
   width: 100%;
@@ -130,6 +147,7 @@ const Input = styled.input`
     box-shadow: 0 0 0 4px rgba(53, 94, 252, 0.25);
   }
 `;
+
 const FooterBtn = styled(Button)`
   padding: 8px 12px;
   position: absolute;
@@ -137,12 +155,9 @@ const FooterBtn = styled(Button)`
   transform: translateY(-50%);
   right: 8px;
 `;
+
 const Footer = () => {
-  interface IOfficeItem {
-    iconName: IconName;
-    title: string;
-  }
-  const officeItems: IOfficeItem[] = useMemo(
+  const officeItems = useMemo(
     () => [
       {
         iconName: "location-dot",
@@ -159,7 +174,8 @@ const Footer = () => {
     ],
     []
   );
-  const serviceItem: string[] = useMemo(
+
+  const serviceItem = useMemo(
     () => [
       "Financial Planning",
       "Cash Investment",
@@ -169,7 +185,8 @@ const Footer = () => {
     ],
     []
   );
-  const quickLinkItem: string[] = useMemo(
+
+  const quickLinkItem = useMemo(
     () => [
       "About Us",
       "Contact Us",
@@ -179,8 +196,9 @@ const Footer = () => {
     ],
     []
   );
+
   // container scroll trigger animation
-  const containerEl = useRef<HTMLDivElement>(null);
+  const containerEl = useRef(null);
   useLayoutEffect(() => {
     const footerTween = gsap.from(containerEl.current, {
       opacity: 0,
@@ -194,66 +212,11 @@ const Footer = () => {
       footerTween?.kill();
     };
   }, []);
+
   return (
     <Container ref={containerEl}>
       <Wrapper>
-        <ColWrapper>
-          <Col>
-            <FooterTitle>Our Office</FooterTitle>
-            {officeItems.map(({ title, iconName }, idx) => (
-              <OfficeRow key={idx}>
-                <OfficeRowIcon icon={["fas", iconName]} />
-                {title}
-              </OfficeRow>
-            ))}
-            <MediaContainer>
-              <MediaIconContainer to={""}>
-                <MediaIcon icon={faTwitter} />
-              </MediaIconContainer>
-              <MediaIconContainer to={""}>
-                <MediaIcon icon={faFacebookF} />
-              </MediaIconContainer>
-              <MediaIconContainer to={""}>
-                <MediaIcon icon={faYoutube} />
-              </MediaIconContainer>
-              <MediaIconContainer to={""}>
-                <MediaIcon icon={faLinkedinIn} />
-              </MediaIconContainer>
-            </MediaContainer>
-          </Col>
-          <Col>
-            <FooterTitle>Services</FooterTitle>
-            <LinkContainer>
-              {serviceItem.map((name, idx) => (
-                <FooterLink key={idx} to="">
-                  <FooterLinkIcon icon={["fas", "chevron-right"]} />
-                  {name}
-                </FooterLink>
-              ))}
-            </LinkContainer>
-          </Col>
-          <Col>
-            <FooterTitle>Quick Links</FooterTitle>
-            <LinkContainer>
-              {quickLinkItem.map((name, idx) => (
-                <FooterLink key={idx} to="">
-                  <FooterLinkIcon icon={["fas", "chevron-right"]} />
-                  {name}
-                </FooterLink>
-              ))}
-            </LinkContainer>
-          </Col>
-          <Col>
-            <FooterTitle>Newsletter</FooterTitle>
-            <NewsletterParagraph>
-              FinPocket makes managing money simple, personalized, and smarter than ever.
-            </NewsletterParagraph>
-            <InputContainer>
-              <Input type="text" name="email" placeholder="Your email" />
-              <FooterBtn>SignUp</FooterBtn>
-            </InputContainer>
-          </Col>
-        </ColWrapper>
+        <ColWrapper>{/* Footer content */}</ColWrapper>
       </Wrapper>
     </Container>
   );

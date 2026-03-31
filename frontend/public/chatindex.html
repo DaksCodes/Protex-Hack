@@ -235,7 +235,7 @@ function sendMessage() {
 
     showLoading();
 
-    fetch("http://127.0.0.1:8000/api/ml/chat", {
+    fetch("https://protex-ml-backend.onrender.com/api/ml/chat", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"

@@ -12,6 +12,7 @@ const Container = styled.div`
   background-size: cover;
   margin-bottom: 48px;
 `;
+
 const Title = styled.h1`
   color: ${({ theme }) => theme.palette.secondary.main};
   font-size: 4rem;
@@ -21,12 +22,14 @@ const Title = styled.h1`
     fontSize: "calc(1.625rem + 4.5vw)",
   })}
 `;
+
 const ListContainer = styled.ul`
   display: flex;
   flex-wrap: wrap;
   list-style-type: none;
   padding: 0;
 `;
+
 const List = styled.li`
   font-size: 1rem;
   font-family: "Open Sans", "sans-serif";
@@ -43,6 +46,7 @@ const List = styled.li`
     }
   }
 `;
+
 const ListLink = styled(Link)`
   color: ${({ theme }) => theme.palette.primary.main};
   transition: all 100ms ease;
@@ -50,12 +54,10 @@ const ListLink = styled(Link)`
     color: ${({ theme }) => theme.palette.primary.darker};
   }
 `;
-interface PageHeaderProps {
-  title: string;
-}
-const PageHeader = ({ title }: PageHeaderProps) => {
+
+const PageHeader = ({ title }) => {
   // container scroll trigger animation
-  const containerEl = useRef<HTMLDivElement>(null);
+  const containerEl = useRef(null);
   useLayoutEffect(() => {
     const pageHeaderTween = gsap.from(containerEl.current, {
       opacity: 0,

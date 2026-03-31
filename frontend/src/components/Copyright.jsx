@@ -2,12 +2,15 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { smDown } from "../utils/responsive";
 import { WrapperContainer } from "./SliderItem";
+
 const Container = styled.div`
   background-color: #000b1c;
 `;
+
 const ContainerWrapper = styled(WrapperContainer)`
   padding: 24px 12px;
 `;
+
 const Wrapper = styled.div`
   margin: 0 -12px;
   display: flex;
@@ -20,6 +23,7 @@ const Wrapper = styled.div`
     },
   })}
 `;
+
 const Col = styled.div`
   font-size: 1rem;
   font-family: "Open Sans", "sans-serif";
@@ -28,6 +32,7 @@ const Col = styled.div`
   padding: 0 12px;
   color: ${({ theme }) => theme.palette.primary.light};
 `;
+
 const CopyrightLink = styled(Link)`
   font-weight: 400;
   color: ${({ theme }) => theme.palette.primary.light};
@@ -37,6 +42,7 @@ const CopyrightLink = styled(Link)`
     color: ${({ theme }) => theme.palette.primary.main};
   }
 `;
+
 const Copyright = () => {
   return (
     <Container>

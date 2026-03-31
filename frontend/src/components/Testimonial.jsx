@@ -3,14 +3,16 @@ import styled from "styled-components";
 import { WrapperContainer, imgbaseUrl } from "./SliderItem";
 import { Paragraph, ParagraphWithLightBorder, TitleH4 } from "./About";
 import { TitleWithBigMargin } from "./Services";
-import Slider, { Settings } from "react-slick";
+import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { faQuoteRight } from "@fortawesome/free-solid-svg-icons";
 import { gsap } from "gsap";
+
 library.add(faQuoteRight);
+
 const Container = styled(WrapperContainer)`
   display: flex;
   flex-direction: column;
@@ -18,18 +20,19 @@ const Container = styled(WrapperContainer)`
   padding-top: 48px;
   padding-bottom: 48px;
 `;
+
 const ContainerTop = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
+
 const StyledSlider = styled(Slider)`
   margin: 0 -12px;
   width: 100%;
   .slick-dots {
     position: initial;
   }
-  //Active Dots Style
   .slick-dots li.slick-active button {
     border-color: ${({ theme }) => theme.palette.primary.main};
     ::before {
@@ -62,16 +65,19 @@ const StyledSlider = styled(Slider)`
     }
   }
 `;
+
 const SlideItemContainer = styled.div`
   padding-right: 24px;
   padding-top: 30px;
   padding-bottom: 30px;
 `;
+
 const SlideItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
+
 const Top = styled.div`
   border: 1px solid ${({ theme }) => theme.palette.primary.light};
   padding: 48px 24px 24px;
@@ -102,6 +108,7 @@ const Top = styled.div`
     border-width: 32px;
   }
 `;
+
 const IconContainer = styled.div`
   height: 60px;
   width: 60px;
@@ -116,21 +123,25 @@ const IconContainer = styled.div`
   left: 50%;
   transform: translateX(-50%);
 `;
+
 const Icon = styled(FontAwesomeIcon)`
   color: ${({ theme }) => theme.palette.primary.main};
   font-size: 2rem;
 `;
+
 const StyledParagraph = styled(Paragraph)`
   text-align: center;
 `;
+
 const Image = styled.img`
   width: 100px;
   height: 100px;
   margin-bottom: 16px;
   border-radius: 50%;
 `;
+
 const Testimonial = () => {
-  const settings: Settings = {
+  const settings = {
     dots: true,
     infinite: true,
     slidesToScroll: 1,
@@ -159,45 +170,41 @@ const Testimonial = () => {
       },
     ],
   };
-  interface SlideItemType {
-    description: string;
-    img: string;
-    name: string;
-    profession: string;
-  }
-  const slideItemArray: SlideItemType[] = [
+
+  const slideItemArray = [
     {
-  description:
-    "FinPocket helped me finally understand where my money was going. The expense tracker and smart insights made budgeting simple and actually effective.",
-  img: "1",
-  name: "Sara",
-  profession: "College Student",
-},
-{
-  description:
-    "The AI chatbot is like having a personal finance mentor. I get instant answers about savings, budgeting, and financial decisions anytime.",
-  img: "2",
-  name: "Max",
-  profession: "Working Professional",
-},
-{
-  description:
-    "I love how everything is in one place. From tracking expenses to setting goals, FinPocket makes managing finances effortless and organized.",
-  img: "3",
-  name: "Lisa",
-  profession: "Startup Founder",
-},
-{
-  description:
-    "The financial awareness section really improved my knowledge. I feel more confident making decisions about investments and savings now.",
-  img: "4",
-  name: "Jimmy",
-  profession: "Undergraduate Student",
-},
+      description:
+        "FinPocket helped me finally understand where my money was going. The expense tracker and smart insights made budgeting simple and actually effective.",
+      img: "1",
+      name: "Sara",
+      profession: "College Student",
+    },
+    {
+      description:
+        "The AI chatbot is like having a personal finance mentor. I get instant answers about savings, budgeting, and financial decisions anytime.",
+      img: "2",
+      name: "Max",
+      profession: "Working Professional",
+    },
+    {
+      description:
+        "I love how everything is in one place. From tracking expenses to setting goals, FinPocket makes managing finances effortless and organized.",
+      img: "3",
+      name: "Lisa",
+      profession: "Startup Founder",
+    },
+    {
+      description:
+        "The financial awareness section really improved my knowledge. I feel more confident making decisions about investments and savings now.",
+      img: "4",
+      name: "Jimmy",
+      profession: "Undergraduate Student",
+    },
   ];
+
   // Top and bottom scroll trigger animation
-  const containerEl = useRef<HTMLDivElement>(null);
-  const topEl = useRef<HTMLDivElement>(null);
+  const containerEl = useRef(null);
+  const topEl = useRef(null);
   useLayoutEffect(() => {
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -213,14 +220,15 @@ const Testimonial = () => {
       y: "100%",
     });
     return () => {
-      tl.scrollTrigger?.kill();
+      if (tl.scrollTrigger) tl.scrollTrigger.kill();
     };
   }, []);
+
   return (
     <Container ref={containerEl}>
       <ContainerTop ref={topEl}>
-        <ParagraphWithLightBorder>Testimonial</ParagraphWithLightBorder>
-        <TitleWithBigMargin>What Our Clients Say!</TitleWithBigMargin>
+        <ParagraphWithLightBorder>Testimonials</ParagraphWithLightBorder>
+        <TitleWithBigMargin>What Our Customer Says</TitleWithBigMargin>
       </ContainerTop>
       <StyledSlider className="testimonial-slick-list" {...settings}>
         {slideItemArray.map(({ description, img, name, profession }, idx) => (
@@ -233,8 +241,8 @@ const Testimonial = () => {
                 <StyledParagraph>{description}</StyledParagraph>
               </Top>
               <Image src={`${imgbaseUrl}testimonial-${img}.jpg`} />
-              <TitleH4>{name}</TitleH4>
-              <Paragraph>{profession}</Paragraph>
+              <TitleH4 style={{ margin: 0 }}>{name}</TitleH4>
+              <StyledParagraph>{profession}</StyledParagraph>
             </SlideItem>
           </SlideItemContainer>
         ))}

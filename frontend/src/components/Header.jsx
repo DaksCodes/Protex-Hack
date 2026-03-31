@@ -20,6 +20,7 @@ import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import styled, { keyframes } from "styled-components";
 import { lgDown, mdDown, mdUp } from "../utils/responsive";
 import { gsap } from "gsap";
+
 library.add(
   faLocationDot,
   faS,
@@ -31,11 +32,7 @@ library.add(
   faArrowUp
 );
 
-interface ContainerProps {
-  isSticky: boolean;
-  isDesktop: boolean;
-}
-const Container = styled.div<ContainerProps>`
+const Container = styled.div`
   opacity: 0;
   padding: 0 48px;
   position: fixed;
@@ -58,7 +55,7 @@ const Container = styled.div<ContainerProps>`
 const Top = styled.div`
   width: 100%;
   height: 45px;
-border-bottom: 1px solid ${({ theme }) => theme.borderColor};
+  border-bottom: 1px solid ${({ theme }) => theme.borderColor};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -66,20 +63,24 @@ border-bottom: 1px solid ${({ theme }) => theme.borderColor};
     display: "none",
   })}
 `;
+
 const Column = styled.div`
   & > small:last-child {
     margin-left: 24px;
   }
 `;
+
 const Small = styled.small`
   color: ${({ theme }) => theme.palette.common.black};
   font-size: 14px;
   font-family: "Open Sans", "sans-serif";
 `;
+
 const StyledIcon = styled(FontAwesomeIcon)`
   color: ${({ theme }) => theme.palette.primary.main};
   margin-right: 8px;
 `;
+
 const Bottom = styled.div`
   display: flex;
   justify-content: space-between;
@@ -87,6 +88,7 @@ const Bottom = styled.div`
   flex-wrap: wrap;
   padding: 8px 0;
 `;
+
 const LogoContainer = styled(Link)`
   text-decoration: none;
   display: flex;
@@ -94,6 +96,7 @@ const LogoContainer = styled(Link)`
   justify-content: center;
   padding: 5px 0;
 `;
+
 const Logo = styled.h1`
   color: ${({ theme }) => theme.palette.primary.main};
   font-size: 3rem;
@@ -102,25 +105,40 @@ const Logo = styled.h1`
     fontSize: "calc(1.425rem + 2.1vw)",
   })}
 `;
-interface RightProps {
-  toggle: boolean;
-}
-const Right = styled.div<RightProps>`
+
+const Right = styled.div`
   display: flex;
   transition: max-height 350ms ease;
   ${({ toggle, theme }) =>
-    mdDown({
-      display: "flex",
-      maxHeight: toggle ? 447 : 0,
-      position: "absolute",
-      top: "100%",
-      left: 0,
-      right: 0,
-      overflow: "hidden",
-      backgroundColor: theme.palette.background.paper,
-borderTop: toggle ? `1px solid ${theme.palette.grey[300]}` : "none",
-    })}
+    toggle === true
+      ? `
+  @media only screen and (max-width:992px) {
+    display: flex;
+    max-height: 447px;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    background-color: ${theme.palette.background.paper};
+    border-top: 1px solid ${theme.palette.grey[300]};
+  }
+  `
+      : `
+  @media only screen and (max-width:992px) {
+    display: flex;
+    max-height: 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    background-color: ${theme.palette.background.paper};
+    border-top: none;
+  }
+  `}
 `;
+
 const Nav = styled.nav`
   display: flex;
   align-items: center;
@@ -131,9 +149,7 @@ const Nav = styled.nav`
       padding: `calc(${theme.containerPaddingX}px /2)`,
     })}
 `;
-interface INavItem {
-  isactive: boolean;
-}
+
 const NavItem = styled(NavLink)`
   text-decoration: none;
   &.active {
@@ -150,16 +166,14 @@ const NavItem = styled(NavLink)`
     padding: "10px 0",
   })}
 `;
+
 const NavItemIcon = styled(FontAwesomeIcon)`
   margin-left: 10px;
   font-size: 10px;
   vertical-align: inherit;
 `;
-interface DropDownContainerProps {
-  isactive: string;
-  toggle: boolean;
-}
-const DropDownContainer = styled.span<DropDownContainerProps>`
+
+const DropDownContainer = styled.span`
   color: ${({ theme, isactive }) =>
     isactive === "true"
       ? theme.palette.primary.main
@@ -176,23 +190,16 @@ const DropDownContainer = styled.span<DropDownContainerProps>`
       color: ${({ theme }) => theme.palette.primary.main};
     }
   }
-  ${mdUp({
-    ["&:hover"]: {
-      ["& > div"]: {
-        opacity: 1,
-        transform: "rotateX(0)",
-      },
-    },
-  })}
   ${({ toggle }) =>
     mdDown({
       width: "100%",
       padding: "10px 0",
-      ["& > div:last-of-type"]: {
+      [`& > div:last-of-type`]: {
         display: toggle ? "block" : "none",
       },
     })}
 `;
+
 const NavDropDown = styled.div`
   opacity: 0;
   position: absolute;
@@ -213,6 +220,7 @@ const NavDropDown = styled.div`
     opacity: 1,
   })}
 `;
+
 const NavDropDownItem = styled(NavLink)`
   width: 100%;
   display: block;
@@ -232,6 +240,7 @@ const NavDropDownItem = styled(NavLink)`
     background-color: ${({ theme }) => theme.palette.grey[100]};
   }
 `;
+
 const MediaContainer = styled.div`
   display: flex;
   align-items: center;
@@ -239,21 +248,25 @@ const MediaContainer = styled.div`
     display: "none",
   })}
 `;
+
 export const DefaultMediaIconContainer = styled(Link)`
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
 `;
+
 const MediaIconContainer = styled(DefaultMediaIconContainer)`
   background-color: ${({ theme }) => theme.palette.primary.light};
   margin-left: 16px;
   height: 32px;
   width: 32px;
 `;
+
 export const MediaIcon = styled(FontAwesomeIcon)`
   color: ${({ theme }) => theme.palette.primary.main};
 `;
+
 const BarsContainer = styled.button`
   display: none;
   padding: 4px 12px;
@@ -272,35 +285,33 @@ const BarsContainer = styled.button`
     display: "initial",
   })}
 `;
+
 const Bars = styled(FontAwesomeIcon)`
   font-size: 2rem;
   color: ${({ theme }) => theme.palette.grey[500]};
 `;
-interface ScrollTopBtnProps {
-  display: string;
-}
+
 const ScrollTopBtnAnimation = keyframes`
-0% {
-opacity:0;
-display:none;
-},
-25% {
-  opacity:0.12
-},
-50% {
-  opacity:0.25
-},
-70% {
-  opacity:0.5
-}
-100%{
-opacity:1;
-display:block;
-}
-,
+  0% {
+    opacity: 0;
+    display: none;
+  }
+  25% {
+    opacity: 0.12;
+  }
+  50% {
+    opacity: 0.25;
+  }
+  70% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+    display: block;
+  }
 `;
 
-const ScrollTopBtn = styled.button<ScrollTopBtnProps>`
+const ScrollTopBtn = styled.button`
   width: 48px;
   height: 48px;
   background-color: ${({ theme }) => theme.palette.primary.main};
@@ -324,11 +335,13 @@ const ScrollTopBtn = styled.button<ScrollTopBtnProps>`
     box-shadow: 0 0 0 0.25rem ${({ theme }) => theme.palette.primary.light}20;
   }
 `;
+
 const Icon = styled(FontAwesomeIcon)`
   color: ${({ theme }) => theme.palette.common.white};
   font-size: 1.5rem;
 `;
-export const hrefBaseUrl = (path: string) => `/finpocket/${path}`;
+
+export const hrefBaseUrl = (path) => `/finpocket/${path}`;
 
 const Header = () => {
   const { pathname } = useLocation();
@@ -338,6 +351,7 @@ const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
   const [displayScrollTop, setDisplayScrollTop] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
+
   // Scroll Listener
   useEffect(() => {
     const handleScroll = () => {
@@ -357,6 +371,7 @@ const Header = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
   // Header Dropdown isActive setter
   useEffect(() => {
     if (
@@ -367,13 +382,16 @@ const Header = () => {
       setIsPagesActive(true);
     else setIsPagesActive(false);
   }, [pathname]);
+
   const handleToggleNav = () => {
     setNavToggle(!navToggle);
     setDropDownToggle(false);
   };
+
   const handleToggleDropDown = () => {
     setDropDownToggle(!dropDownToggle);
   };
+
   const handleScrollTop = () => {
     window.scrollTo({
       top: 0,
@@ -383,7 +401,7 @@ const Header = () => {
   };
 
   // gsap fade-in on header bottom part
-  const containerEl = useRef<HTMLDivElement>(null);
+  const containerEl = useRef(null);
   useLayoutEffect(() => {
     const headerTween = gsap.to(containerEl.current, {
       opacity: 1,
@@ -397,43 +415,23 @@ const Header = () => {
       headerTween.scrollTrigger?.kill();
     };
   }, []);
+
   return (
     <>
       <Container ref={containerEl} isSticky={isSticky} isDesktop={isDesktop}>
-        
         <Bottom>
           <LogoContainer to="">
             <Logo>Finpocket</Logo>
           </LogoContainer>
           <Right toggle={navToggle}>
             <Nav>
-              <NavItem to="">Home</NavItem>
-              {/* <NavItem to="about">About</NavItem> */}
-             
-              {/* <DropDownContainer
-                onClick={handleToggleDropDown}
-                toggle={dropDownToggle}
-                isactive={`{isPagesActive}`}
-              >
-                Pages
-                <NavItemIcon icon={["fas", "chevron-down"]} />
-                <NavDropDown>
-                  <NavDropDownItem to="project">Projects</NavDropDownItem>
-                  <NavDropDownItem to="feature">Features</NavDropDownItem>
-                  <NavDropDownItem to="team">Team Member</NavDropDownItem>
-                  <NavDropDownItem to="testimonial">
-                    Testimonial
-                  </NavDropDownItem>
-                  <NavDropDownItem to="notFound">404 Page</NavDropDownItem>
-                </NavDropDown>
-              </DropDownContainer> */}
+              <NavItem to="/">Home</NavItem>
               <NavItem to="/dashboard">Dashboard</NavItem>
-<NavItem to="/expense">Expense Tracker</NavItem>
-<NavItem to="/fire">FIRE</NavItem>
-<NavItem to="/education">Education</NavItem>
-              {/* <NavItem to="contact">Contact</NavItem> */}
+              <NavItem as="a" href="https://expense1tracker.streamlit.app/" target="_blank" rel="noopener noreferrer">Expense Tracker</NavItem>
+              <NavItem to="/fire">FIRE</NavItem>
+              <NavItem to="/education">Education</NavItem>
+              <NavItem as="a" href="/chatindex.html">Chat with AI</NavItem>
             </Nav>
-       
           </Right>
           <BarsContainer onClick={handleToggleNav}>
             <Bars icon={["fas", "bars"]} />

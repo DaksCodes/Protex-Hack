@@ -7,12 +7,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
-import Slider, { Settings } from "react-slick";
+import Slider from "react-slick";
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
 import styled from "styled-components";
 import SliderItem from "./SliderItem";
-library.add(faChevronLeft, faChevronRight);
+
+gsap.registerPlugin(ScrollTrigger);
+
 const Container = styled.div`
   position: relative;
   margin-bottom: 48px;
@@ -40,12 +42,15 @@ const SlideButtonContainer = styled.button`
     }
   }
 `;
+
 const SlideLeftButtonContainer = styled(SlideButtonContainer)`
   left: 0;
 `;
+
 const SlideRightButtonContainer = styled(SlideButtonContainer)`
   right: 0;
 `;
+
 const SlideButton = styled.div`
   height: ${({ theme }) => theme.containerPaddingX}px;
   width: ${({ theme }) => theme.containerPaddingX}px;
@@ -61,14 +66,17 @@ const SlideButton = styled.div`
     color: ${({ theme }) => theme.palette.common.white};
   }
 `;
+
 const SlideLeftButton = styled(SlideButton)`
   border-radius: 0 50% 50% 0;
 `;
+
 const SlideRightButton = styled(SlideButton)`
   border-radius: 50% 0 0 50%;
 `;
+
 const Carousel = () => {
-  const settings: Settings = {
+  const settings = {
     fade: true,
     infinite: true,
     speed: 1000,
@@ -79,11 +87,13 @@ const Carousel = () => {
     arrows: false,
   };
 
-  const slideEl = useRef<Slider | null>(null);
-  const handleScroll = (direction: string) => {
+  const slideEl = useRef(null);
+  
+  const handleScroll = (direction) => {
     if (direction === "left") slideEl.current?.slickPrev();
     else slideEl.current?.slickNext();
   };
+
   // Caroussel fadein animation
   useLayoutEffect(() => {
     const carouselTween = gsap.from(".carousel-slick-list", {
@@ -98,17 +108,11 @@ const Carousel = () => {
       carouselTween.scrollTrigger?.kill();
     };
   }, []);
+
   // Caroussel slideInDown animation
-  const sliderParagraphsEl = useRef<HTMLParagraphElement[]>([]);
-  const addToSliderParagraphs = (el: HTMLParagraphElement) => {
-    if (el && !sliderParagraphsEl.current.includes(el))
-      sliderParagraphsEl.current.push(el);
-  };
-  const slidertitlesEl = useRef<HTMLHeadingElement[]>([]);
-  const addToSliderTitles = (el: HTMLHeadingElement) => {
-    if (el && !slidertitlesEl.current.includes(el))
-      slidertitlesEl.current.push(el);
-  };
+  const sliderParagraphsEl = useRef([]);
+  const slidertitlesEl = useRef([]);
+
   useEffect(() => {
     const animation = gsap.from(".slide-item", {
       y: "100%",
@@ -122,13 +126,9 @@ const Carousel = () => {
       // gsapTween.scrollTrigger?.kill();
     };
   }, []);
-  // slider item
-  interface ISliderItem {
-    title: string;
-  }
-  const sliderItems: ISliderItem[] = useMemo(
+
+  const sliderItems = useMemo(
     () => [
-      
       {
         title: "Your Goals, Our Expertise – FinancialSuccess",
       },
@@ -138,6 +138,7 @@ const Carousel = () => {
     ],
     []
   );
+
   return (
     <Container>
       <Slider className="carousel-slick-list" ref={slideEl} {...settings}>

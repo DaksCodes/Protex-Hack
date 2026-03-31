@@ -20,7 +20,7 @@ const FireCalculator = () => {
     useEffect(() => {
         const fetchMLData = async () => {
             try {
-                const res = await axios.get('http://localhost:5000/api/fire-stats'); 
+                const res = await axios.get('https://protex-hack.onrender.com/api/fire-stats'); 
                 if (res.data.success) {
                     setMonthlyExpense(res.data.data.predicted_monthly_expense);
                     setYearlySavings(res.data.data.predicted_yearly_savings);

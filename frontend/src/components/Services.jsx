@@ -11,7 +11,6 @@ import styled from "styled-components";
 import { Paragraph, ParagraphWithLightBorder, Title, fadeout } from "./About";
 import { ButtonLink, WrapperContainer, imgbaseUrl } from "./SliderItem";
 import { lgDown, mdDown, smDown } from "../utils/responsive";
-import { arrayBuffer } from "stream/consumers";
 import { hrefBaseUrl } from "./Header";
 import { gsap } from "gsap";
 
@@ -21,16 +20,19 @@ const Container = styled(WrapperContainer)`
   flex-direction: column;
   align-items: center;
 `;
+
 const Top = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
 `;
+
 export const TitleWithBigMargin = styled(Title)`
   margin-bottom: 48px;
   max-width: 600px;
   text-align: center;
 `;
+
 const Bottom = styled.div`
   display: flex;
   width: 100%;
@@ -38,9 +40,11 @@ const Bottom = styled.div`
     flexDirection: "column",
   })}
 `;
+
 const Col = styled.div`
   flex: 1;
 `;
+
 const NavPillsContainer = styled(Col)`
   padding-right: 12px;
   display: flex;
@@ -50,10 +54,8 @@ const NavPillsContainer = styled(Col)`
     paddingRight: 0,
   })}
 `;
-interface NavPillProps {
-  isSelected: boolean;
-}
-const NavPill = styled.button<NavPillProps>`
+
+const NavPill = styled.button`
   width: 100%;
   padding: 24px;
   background: ${({ theme, isSelected }) =>
@@ -74,19 +76,19 @@ const NavPill = styled.button<NavPillProps>`
     margin-bottom: 24px;
   }
 `;
+
 const NavPillText = styled.h5`
   font-size: 1.25rem;
   text-align: left;
   transition: all 500ms ease-in-out;
 `;
+
 const NavPillIcon = styled(FontAwesomeIcon)`
   margin-right: 16px;
   transition: all 500ms ease-in-out;
 `;
-interface RightProps {
-  isVisible?: boolean;
-}
-const Right = styled.div<RightProps>`
+
+const Right = styled.div`
   flex: 2;
   padding-left: 12px;
   display: ${({ isVisible }) => (isVisible ? "flex" : "none")};
@@ -110,8 +112,9 @@ const ImageContainer = styled(Col)`
     flex: 0,
     minHeight: 350,
   })}
-  position:relative;
+  position: relative;
 `;
+
 const Image = styled.img`
   position: absolute;
   height: 100%;
@@ -129,6 +132,7 @@ const RightDescContainer = styled(Col)`
     marginTop: 24,
   })}
 `;
+
 const RightTitle = styled.h3`
   font-size: 1.75rem;
   color: ${({ theme }) => theme.palette.secondary.main};
@@ -138,36 +142,44 @@ const RightTitle = styled.h3`
     fontSize: "calc(1.3rem + .6vw)",
   })}
 `;
+
 const RightDesc = styled(Paragraph)`
   margin-bottom: 24px;
 `;
+
 const RightParagraph = styled(Paragraph)`
   margin-bottom: 16px;
 `;
+
 const RightParagraphIcon = styled(FontAwesomeIcon)`
   color: ${({ theme }) => theme.palette.primary.main};
   margin-right: 16px;
 `;
+
 const RightButton = styled(ButtonLink)`
   margin-top: 16px;
 `;
+
 const Services = () => {
   const [pillIndex, setPillIndex] = useState(0);
-  const handleChangePillIndex = (idx: number) => {
+
+  const handleChangePillIndex = (idx) => {
     setPillIndex(idx);
   };
-  const pills: string[] = [
+
+  const pills = [
     "Financial Planing",
     "Cash Investment",
     "Financial Consultancy",
     "Business Loans",
   ];
 
-  const advantages: string[] = [
+  const advantages = [
     "Secured Loans",
     "Credit Facilities",
     "Cash Advanced",
   ];
+
   const memoizedAdvantages = useMemo(
     () =>
       advantages.map((advantage, idx) => (
@@ -179,11 +191,7 @@ const Services = () => {
     []
   );
 
-  interface IRight {
-    title: string;
-    desc: string;
-  }
-  const rightItems: IRight[] = [
+  const rightItems = [
     {
       title: "25 Years Of Experience In Financial Support",
       desc: "Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat amet.",
@@ -201,6 +209,7 @@ const Services = () => {
       desc: "Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit. Aliqu diam amet diam et eos. Clita erat ipsum et lorem et sit, sed stet lorem sit clita duo justo erat amet.",
     },
   ];
+
   const memoizedRights = useMemo(
     () =>
       rightItems.map(({ title, desc }, idx) => {
@@ -220,10 +229,12 @@ const Services = () => {
       }),
     [pillIndex, memoizedAdvantages]
   );
+
   // Scroll Trigger animation
-  const containerEl = useRef<HTMLDivElement>(null);
-  const topEl = useRef<HTMLDivElement>(null);
-  const bottomEl = useRef<HTMLDivElement>(null);
+  const containerEl = useRef(null);
+  const topEl = useRef(null);
+  const bottomEl = useRef(null);
+
   useLayoutEffect(() => {
     const t1 = gsap.timeline({
       scrollTrigger: {
@@ -242,6 +253,7 @@ const Services = () => {
       t1.scrollTrigger?.kill();
     };
   }, []);
+
   return (
     <Container ref={containerEl}>
       <Top ref={topEl}>
