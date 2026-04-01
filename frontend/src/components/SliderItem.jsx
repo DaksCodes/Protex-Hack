@@ -133,7 +133,7 @@ const SliderItem = ({ idx, title }) => {
       <Image onLoad={handleLoad} src={`${baseUrl}${idx + 1}${endUrl}`} />
       <SliderDesc>
         <ParagraphWithBorder className="child" ref={paragraphEl}>
-          Welcome to Finanza
+          Welcome to FinPocket
         </ParagraphWithBorder>
         <Title className="child" ref={titleEl}>
           {title}
