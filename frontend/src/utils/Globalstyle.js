@@ -3,6 +3,7 @@ import { createGlobalStyle } from "styled-components";
 export const GlobalStyle = createGlobalStyle`
 body {
   margin:0;
+  padding-top: 80px;
   background-color: ${({ theme }) => theme.palette.background.default};
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
