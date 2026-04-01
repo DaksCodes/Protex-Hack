@@ -47,30 +47,10 @@ const Card = styled.div`
   width: 100%;
   position: relative;
   &:hover {
-    & > div {
-      background-color: ${({ theme }) => theme.palette.primary.main};
-    }
     & h4 {
       color: ${({ theme }) => theme.palette.common.white};
     }
   }
-`;
-
-const CardImgBg = styled.div`
-  position: absolute;
-  left: 48px;
-  right: 48px;
-  top: 0;
-  bottom: 0;
-  border: 1px solid ${({ theme }) => theme.palette.primary.light};
-  border-radius: ${({ theme }) => theme.borderRadius};
-  transition: background-color 300ms linear;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px 0;
-  z-index: 1;
 `;
 
 const MediaContainer = styled.div`
@@ -101,6 +81,14 @@ const CardImg = styled.img`
   height: 380px;
   object-fit: cover;
   border-radius: ${({ theme }) => theme.borderRadius};
+`;
+
+const CardName = styled.h4`
+  margin-top: 12px;
+  font-size: 1rem;
+  text-align: center;
+  color: ${({ theme }) => theme.palette.text.primary || "#111"};
+  z-index: 2;
 `;
 
 const Team = () => {
@@ -170,7 +158,9 @@ const Team = () => {
               <CardImg
                 onLoad={handleLoad}
                 src={`${imgbaseUrl}team-${img}.jpg`}
+                alt={name}
               />
+              <CardName>{name}</CardName>
             </Card>
           </CardWrapper>
         ))}
