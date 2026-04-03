@@ -7,3 +7,4 @@ python-dotenv==1.2.2
 scikit_learn==1.8.0
 uvicorn
 google-generativeai
+google-genai
