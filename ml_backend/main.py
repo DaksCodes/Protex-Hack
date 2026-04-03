@@ -41,7 +41,9 @@ def load_data():
 
     return df
 
-
+@app.get("/")
+def read_root():
+    return {"status": "Server is running"}
 @app.get("/api/expenses")
 def get_expenses():
     df = load_data()
