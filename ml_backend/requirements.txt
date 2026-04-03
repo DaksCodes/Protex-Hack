@@ -6,3 +6,4 @@ pymongo==4.16.0
 python-dotenv==1.2.2
 scikit_learn==1.8.0
 uvicorn
+google-generativeai
