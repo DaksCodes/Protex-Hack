@@ -152,7 +152,14 @@ def get_fire_predictions():
 
 
 # -------- GEMINI SETUP --------
-gemini_client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY", "AIzaSyAPqYWR4kudfGVF3tNwhnH4vlONC9-8_RU"))
+
+api_key = os.environ.get("GEMINI_API_KEY")
+
+if not api_key:
+    raise ValueError("cant fetch gemini key")
+
+gemini_client = genai.Client(api_key=api_key)
+
  
  
 class ChatRequest(BaseModel):
