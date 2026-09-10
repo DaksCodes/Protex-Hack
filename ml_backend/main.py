@@ -23,7 +23,7 @@ app.add_middleware(
 )
 
 # -------- DATABASE SETUP --------
-MONGO_URI = "mongodb+srv://sy0381718_db_user:JBcn424qYwSW9i0k@cluster0.vjpjfyo.mongodb.net/?appName=Cluster0"
+MONGO_URI = "mongodb+srv://DakshitaFinPocket:ir3WVNZOwpbSaQZOcluster0.ioafl.mongodb.net/?appName=Cluster0"
 mongo_client = MongoClient(MONGO_URI)  # FIX: renamed to mongo_client to avoid conflict with genai client
 db = mongo_client["finance_db"]
 transactions_collection = db["expenses"]
